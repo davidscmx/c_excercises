@@ -11,7 +11,6 @@ print out everyfile that contains the word "david" on it */
 #include <stdio.h>
 #include <stdlib.h>
 #include <dirent.h> // 
-
 #include <string.h>
 
 // https://stackoverflow.com/questions/8133074/error-unknown-type-name-bool
@@ -23,6 +22,8 @@ bool is_binary(const void *data, size_t len)
 {
     return memchr(data, '\0', len) != NULL;
 }
+
+
 
 int main(int argc, char *argv[]){
 
@@ -41,7 +42,12 @@ int main(int argc, char *argv[]){
     printf("file: %s\n", dp->d_name); // print all the files in this directory   
     FILE *fp = fopen(dp->d_name, "r"); // open the file
     
-    if (fp == NULL)  
+    bool bin_or_not = is_binary(fp,20);
+    printf("Is my file a binary file: %d ",bin_or_not);
+
+    if (bin_or_not) continue;
+
+    if (fp == NULL )  
       exit(-1);
 
     char line[256];
